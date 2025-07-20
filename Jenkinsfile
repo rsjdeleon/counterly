@@ -1,62 +1,52 @@
 pipeline {
     agent any
 
-    tools {
-        // Ensure this is configured under "Manage Jenkins > Global Tool Configuration"
-        jdk 'jdk-21'
+    environment {
+        MAVEN_OPTS = "-Dmaven.repo.local=.m2/repository"
     }
 
-    environment {
-        GRADLE_OPTS = "-Dorg.gradle.daemon=false"
+    tools {
+        // Optional: define this only if "Maven 3.9" is configured in Jenkins tools
+        maven 'Maven 3.9'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Clone source from GitHub
+                echo '📥 Checking out code...'
                 checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                echo '🛠️ Building the application...'
-                sh './gradlew clean build --no-daemon'
+                echo '⚙️ Running mvn clean install...'
+                sh 'mvn clean install -B -U'
             }
         }
 
         stage('Test') {
             steps {
                 echo '🧪 Running unit tests...'
-                sh './gradlew test --no-daemon'
+                sh 'mvn test -B'
             }
         }
 
-        stage('Quality Check') {
-            steps {
-                echo '🧹 Running code checks (optional)...'
-                // Optional: integrate tools like Checkstyle, Detekt, etc.
-            }
-        }
-
-        stage('Deploy') {
-            when {
-                anyOf {
-                    branch 'main'
-                    branch 'develop'
-                }
-            }
-            steps {
-                echo "🚀 Deploying for branch: ${env.BRANCH_NAME}"
-                // Example deploy: Docker image build & push, SSH, Kubernetes, etc.
-                // sh './deploy.sh' or 'docker build/push'
-            }
-        }
+        // Optional: Include this if you plan to deploy
+        // stage('Deploy') {
+        //     when {
+        //         branch 'main'
+        //     }
+        //     steps {
+        //         echo '🚀 Deploying artifact...'
+        //         // Example: sh './deploy.sh' or Docker push, etc.
+        //     }
+        // }
     }
 
     post {
         success {
-            echo '✅ Build succeeded!'
+            echo '✅ Build completed successfully!'
         }
         failure {
             echo '❌ Build failed!'
