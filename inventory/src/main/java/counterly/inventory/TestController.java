@@ -1,4 +1,4 @@
-package order;
+package counterly.inventory;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
