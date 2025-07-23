@@ -11,6 +11,24 @@ pipeline {
     }
 
     stages {
+        stage('Check Prerequisites') {
+            steps {
+                echo '🔎 Checking for minikube and kubectl...'
+                sh '''
+                    if ! [ -x "/opt/homebrew/bin/minikube" ]; then
+                        echo "❌ ERROR: minikube not found at /opt/homebrew/bin/minikube"
+                        echo "Please ensure minikube is installed and accessible to the Jenkins agent at this path."
+                        exit 1
+                    fi
+                    if ! [ -x "/opt/homebrew/bin/kubectl" ]; then
+                        echo "❌ ERROR: kubectl not found at /opt/homebrew/bin/kubectl"
+                        echo "Please ensure kubectl is installed and accessible to the Jenkins agent at this path."
+                        exit 1
+                    fi
+                '''
+            }
+        }
+
         stage('Checkout') {
             steps {
                 echo '📦 Cloning repository...'
@@ -42,7 +60,7 @@ pipeline {
         stage('Deploy to Minikube') {
             steps {
                 echo '🚀 Deploying to Minikube...'
-                sh 'kubectl apply -f k8s/'
+                sh '/opt/homebrew/bin/kubectl apply -f k8s/'
             }
         }
     }
