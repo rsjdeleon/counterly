@@ -1,11 +1,14 @@
-FROM openjdk:11-jre-slim as builder
+FROM eclipse-temurin:21-jre as builder
+ARG JAR_FILE
 WORKDIR application
-ADD maven/${project.build.finalName}.jar ${project.build.finalName}.jar
-RUN java -Djarmode=layertools -jar ${project.build.finalName}.jar extract
+ADD target/${JAR_FILE} application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
 
-FROM openjdk:11-jre-slim
-LABEL PROJECT_NAME=${project.artifactId} \
-      PROJECT=${project.id}
+FROM eclipse-temurin:21-jre
+ARG PROJECT_NAME
+ARG PROJECT
+LABEL PROJECT_NAME=${PROJECT_NAME} \
+      PROJECT=${PROJECT}
 
 EXPOSE 8080
 
@@ -14,4 +17,4 @@ COPY --from=builder application/dependencies/ ./
 COPY --from=builder application/spring-boot-loader/ ./
 COPY --from=builder application/snapshot-dependencies/ ./
 COPY --from=builder application/application/ ./
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "org.springframework.boot.loader.JarLauncher"]
+ENTRYPOINT ["java", "-cp", ".", "org.springframework.boot.loader.launch.PropertiesLauncher"]
