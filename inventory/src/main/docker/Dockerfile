@@ -10,7 +10,7 @@ ARG PROJECT
 LABEL PROJECT_NAME=${PROJECT_NAME} \
       PROJECT=${PROJECT}
 
-EXPOSE 8080
+EXPOSE 8081
 
 WORKDIR application
 COPY --from=builder application/dependencies/ ./

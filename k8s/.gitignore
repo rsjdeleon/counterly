@@ -1,0 +1,7 @@
+# Ignore all yaml files by default
+*.yaml
+*.yml
+
+# Don't ignore deployment files
+!inventory-deployment.yml
+!order-deployment.yml

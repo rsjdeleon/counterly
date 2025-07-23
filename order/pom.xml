@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>counterly.order</artifactId>
-    <name>counterly order</name>
+    <name>order</name>
     <packaging>jar</packaging>
 
     <dependencies>
