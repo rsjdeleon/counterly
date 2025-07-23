@@ -6,28 +6,29 @@ pipeline {
     }
 
     environment {
+        PATH = "/var/jenkins_home/minikube-bin:$PATH"
         INVENTORY_IMAGE = "rsjdeleon/inventory-service:latest"
         ORDER_IMAGE = "rsjdeleon/order-service:latest"
     }
 
     stages {
-        stage('Check Prerequisites') {
-            steps {
-                echo '🔎 Checking for minikube and kubectl...'
-                sh '''
-                    if ! [ -x "/opt/homebrew/bin/minikube" ]; then
-                        echo "❌ ERROR: minikube not found at /opt/homebrew/bin/minikube"
-                        echo "Please ensure minikube is installed and accessible to the Jenkins agent at this path."
-                        exit 1
-                    fi
-                    if ! [ -x "/opt/homebrew/bin/kubectl" ]; then
-                        echo "❌ ERROR: kubectl not found at /opt/homebrew/bin/kubectl"
-                        echo "Please ensure kubectl is installed and accessible to the Jenkins agent at this path."
-                        exit 1
-                    fi
-                '''
-            }
-        }
+        // stage('Check Prerequisites') {
+        //     steps {
+        //         echo '🔎 Checking for minikube and kubectl...'
+        //         sh '''
+        //             if ! [ -x "/opt/homebrew/bin/minikube" ]; then
+        //                 echo "❌ ERROR: minikube not found at /opt/homebrew/bin/minikube"
+        //                 echo "Please ensure minikube is installed and accessible to the Jenkins agent at this path."
+        //                 exit 1
+        //             fi
+        //             if ! [ -x "/opt/homebrew/bin/kubectl" ]; then
+        //                 echo "❌ ERROR: kubectl not found at /opt/homebrew/bin/kubectl"
+        //                 echo "Please ensure kubectl is installed and accessible to the Jenkins agent at this path."
+        //                 exit 1
+        //             fi
+        //         '''
+        //     }
+        // }
 
         stage('Checkout') {
             steps {
@@ -47,7 +48,7 @@ pipeline {
             steps {
                 echo '🐳 Building and pushing Docker images to Minikube...'
                 // Point shell to minikube's docker-daemon
-                sh 'eval $(/opt/homebrew/bin/minikube -p minikube docker-env)'
+                sh 'eval $(minikube -p minikube docker-env)'
 
                 // Build and push inventory-service image
                 sh "docker build -t ${env.INVENTORY_IMAGE} -f inventory/src/main/docker/Dockerfile --build-arg JAR_FILE=target/inventory-1.0-SNAPSHOT.jar inventory"
