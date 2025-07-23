@@ -6,8 +6,6 @@ pipeline {
     }
 
     environment {
-        // Add minikube to the PATH. Adjust the path if minikube is installed elsewhere.
-        PATH = "/usr/local/bin:${env.PATH}"
         INVENTORY_IMAGE = "rsjdeleon/inventory-service:latest"
         ORDER_IMAGE = "rsjdeleon/order-service:latest"
     }
@@ -31,7 +29,7 @@ pipeline {
             steps {
                 echo '🐳 Building and pushing Docker images to Minikube...'
                 // Point shell to minikube's docker-daemon
-                sh 'eval $(minikube -p minikube docker-env)'
+                sh 'eval $(/opt/homebrew/bin/minikube -p minikube docker-env)'
 
                 // Build and push inventory-service image
                 sh "docker build -t ${env.INVENTORY_IMAGE} -f inventory/src/main/docker/Dockerfile --build-arg JAR_FILE=target/inventory-1.0-SNAPSHOT.jar inventory"
