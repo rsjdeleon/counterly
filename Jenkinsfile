@@ -6,6 +6,8 @@ pipeline {
     }
 
     environment {
+        // Add minikube to the PATH. Adjust the path if minikube is installed elsewhere.
+        PATH = "/usr/local/bin:${env.PATH}"
         INVENTORY_IMAGE = "rsjdeleon/inventory-service:latest"
         ORDER_IMAGE = "rsjdeleon/order-service:latest"
     }
