@@ -8,8 +8,8 @@
         <relativePath>../bom/pom.xml</relativePath>
     </parent>
 
-    <artifactId>counterly.order</artifactId>
-    <name>order</name>
+    <artifactId>counterly.product</artifactId>
+    <name>product</name>
     <packaging>jar</packaging>
 
 
