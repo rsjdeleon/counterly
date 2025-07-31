@@ -1,11 +1,14 @@
-package counterly.inventory;
+package counterly.product;
 
 
-// @SpringBootTest
-// public class MsscBeerServiceApplicationTests {
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-//     @Test
-//     public void contextLoads() {
-//     }
+@SpringBootTest
+ public class ProductApplicationTests {
 
-// }
+     @Test
+     public void contextLoads() {
+     }
+
+ }
