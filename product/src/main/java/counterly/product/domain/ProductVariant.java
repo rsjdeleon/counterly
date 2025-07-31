@@ -1,14 +1,14 @@
 package counterly.product.domain;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import counterly.common.domain.BaseEntity;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * @author Raymond De leon
@@ -21,14 +21,13 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Builder
 public class ProductVariant {
+	@Id
+	@GeneratedValue(generator = "UUID")
+	@Column(length = 36, columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+	private UUID id;
 
-	@ManyToOne
-	private Product product;
-	private String sku;
-	private String barcode;
-	private String attributes;
-	private double price;
-	private boolean active = true;
+	@Version
+	private Long version;
 
 	@CreationTimestamp
 	@Column(updatable = false)
@@ -36,5 +35,14 @@ public class ProductVariant {
 
 	@UpdateTimestamp
 	private Timestamp modifiedDate;
+
+	private boolean active = true;
+
+	@ManyToOne
+	private Product product;
+	private String sku;
+	private String barcode;
+	private String attributes;
+	private double price;
 
 }

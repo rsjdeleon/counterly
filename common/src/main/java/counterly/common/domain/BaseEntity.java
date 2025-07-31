@@ -1,30 +1,22 @@
-package counterly.product.domain;
+package counterly.common.domain;
 
-import counterly.common.domain.BaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.util.UUID;
 
-/**
- * @author Raymond De leon
- *
- */
 @Getter
 @Setter
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Category {
+@MappedSuperclass
+public abstract class BaseEntity {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @Column(length = 36, columnDefinition = "BINARY(16)", updatable = false, nullable = false)
+    @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private UUID id;
 
     @Version
@@ -38,6 +30,4 @@ public class Category {
     private Timestamp modifiedDate;
 
     private boolean active = true;
-
-    private String name;
 }
