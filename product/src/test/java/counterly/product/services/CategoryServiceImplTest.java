@@ -44,21 +44,21 @@ public class CategoryServiceImplTest {
 
         // Domain object
         Category category = new Category();
-        category.setId(id);
+        category.setId(id.toString());
         category.setName("Test Category");
 
         // DTO object
         CategoryDto categoryDto = CategoryDto.builder()
-                .id(id)
+                .id(id.toString())
                 .name("Test Category")
                 .build();
 
         // Mock behavior
-        when(categoryRepository.findById(id)).thenReturn(Optional.of(category));
+        when(categoryRepository.findById(id.toString())).thenReturn(Optional.of(category));
         when(categoryMapper.categoryToCategoryDto(category)).thenReturn(categoryDto);
 
         // Call method
-        CategoryDto result = categoryService.findById(id);
+        CategoryDto result = categoryService.findById(id.toString());
 
         // Verify result
         assertEquals("Test Category", result.getName());

@@ -3,8 +3,8 @@ package counterly.product.domain;
 import counterly.common.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
+import org.hibernate.type.SqlTypes;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -20,10 +20,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class Product {
+
 	@Id
-	@GeneratedValue(generator = "UUID")
-	@Column(length = 36, columnDefinition = "BINARY(16)", updatable = false, nullable = false)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(length = 36, nullable = false, updatable = false)
+	private String id;
 
 	@Version
 	private Long version;
@@ -41,8 +42,8 @@ public class Product {
 	private String name;
 	private String description;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.JOIN)
 	private Category category;
-
 
 }

@@ -26,6 +26,8 @@ import java.util.UUID;
 /**
  * Created by Raymond on 2025-07-31.
  */
-public interface ProductRepository extends JpaRepository<Product, UUID> {
+public interface ProductRepository extends JpaRepository<Product, String> {
+
+    Page<Product> findAllByActive(Boolean active, Pageable pageable);
 
 }

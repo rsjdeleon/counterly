@@ -10,12 +10,12 @@ public interface CategoryService {
 
     List<CategoryDto> listCategory(Boolean active);
 
-    CategoryDto findById(UUID id);
+    CategoryDto findById(String id);
 
-    CategoryDto saveCategory(CategoryDto beerDto);
+    CategoryDto saveCategory(CategoryDto categoryDto);
 
-    void updateCategory(UUID id, CategoryDto beerDto);
+    void updateCategory(String id, CategoryDto categoryDto);
 
-    void deleteById(UUID id);
+    void deleteById(String id);
 
 }

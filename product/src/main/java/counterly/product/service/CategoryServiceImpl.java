@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto findById(UUID id) {
+    public CategoryDto findById(String id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
 
         if (categoryOptional.isPresent()) {
@@ -48,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void updateCategory(UUID id, CategoryDto categoryDto) {
+    public void updateCategory(String id, CategoryDto categoryDto) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
 
         categoryOptional.ifPresentOrElse(category -> {
@@ -60,7 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteById(UUID id) {
+    public void deleteById(String id) {
         categoryRepository.deleteById(id);
     }
 }

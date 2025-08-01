@@ -16,15 +16,19 @@
  */
 package counterly.product.repositories;
 
+import counterly.product.domain.Category;
 import counterly.product.domain.Product;
 import counterly.product.domain.ProductVariant;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
  * Created by Raymond on 2025-07-31.
  */
-public interface ProductVariantRepository extends JpaRepository<ProductVariant, UUID> {
+public interface ProductVariantRepository extends JpaRepository<ProductVariant, String> {
+
 
 }
