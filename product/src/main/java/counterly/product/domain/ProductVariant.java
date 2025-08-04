@@ -16,8 +16,7 @@ import java.util.UUID;
  * @author Raymond De leon
  *
  */
-@Getter
-@Setter
+@Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,6 +42,7 @@ public class ProductVariant {
 
 	@ManyToOne
 	private Product product;
+
 	private String sku;
 	private String barcode;
 	private String attributes;
