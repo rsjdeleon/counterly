@@ -33,7 +33,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = request.getHeader("Authorization");
 
             if (StringUtils.hasText(token) && token.startsWith("Bearer ")) {
+
                 Claims claims = jwtUtil.getClaims(token.substring(7));
+
                 List<?> rawRoles = claims.get("roles", List.class);
                 List<String> roles = rawRoles.stream()
                         .map(Object::toString)

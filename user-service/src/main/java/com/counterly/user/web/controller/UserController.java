@@ -6,6 +6,7 @@ import com.counterly.user.dto.UserDto;
 import com.counterly.user.request.RegisterRequest;
 import com.counterly.user.request.UserUpdateRequest;
 import com.counterly.user.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -20,10 +21,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
+@Tag(name = "tag_at_class_level", description = "Books related class level tag")
 public class UserController {
     private final UserService userService;
 
+    @Tag(name = "create")
+    @Tag(name = "common_tag_at_method_level")
+    @Tag(name = "createBook")
     @PostMapping("/save")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(required = true)
     public ResponseEntity<UserDto> save(@Valid @RequestBody RegisterRequest request) {
         return ResponseEntity.ok(userService.saveUser(request));
     }
@@ -46,6 +52,9 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUserById(request));
     }
 
+    @Tag(name = "delete")
+    @Tag(name = "common_tag_at_method_level")
+    @Tag(name = "deleteBook")
     @DeleteMapping("/deleteUserById/{id}")
     @PreAuthorize("hasRole('ADMIN') or @userService.getUserById(#id).username == principal")
     public ResponseEntity<Void> deleteUserById(@PathVariable String id) {

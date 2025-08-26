@@ -20,12 +20,11 @@ public class GatewayConfig {
                 .route("user-service", r -> r.path("/api/v1/user/**")
                         .filters(f -> f.filter(filter))
                         .uri("lb://user-service"))
-
                 .route("user-service", r -> r.path("/api/v1/security/**")
                         .uri("lb://user-service"))
-//                .route("job-service", r -> r.path("/v1/job-service/**")
-//                        .filters(f -> f.filter(filter))
-//                        .uri("lb://job-service"))
+                .route("product-service", r -> r.path("/api/v1/category/**", "/api/v1/product/**", "/api/v1/product-variant/**")
+                        .filters(f -> f.filter(filter))
+                        .uri("lb://product-service"))
 //
 //                .route("notification-service", r -> r.path("/v1/notification/**")
 //                        .filters(f -> f.filter(filter))

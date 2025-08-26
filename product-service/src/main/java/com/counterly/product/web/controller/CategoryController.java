@@ -21,7 +21,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('category_read')")
     public ResponseEntity<List<CategoryDto>> listCategory() {
         return ResponseEntity.ok(categoryService.listCategory(true));
     }
