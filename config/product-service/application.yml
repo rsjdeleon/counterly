@@ -1,6 +1,9 @@
 # This file applies to ALL microservices by default
 spring:
   datasource:
+    url: jdbc:mysql://localhost:3306/counterly
+    username: product
+    password: product
     hikari:
       maximum-pool-size: 5
       data-source-properties:
