@@ -1,4 +1,6 @@
 spring:
+  server:
+    port: 80861
   datasource:
     url: jdbc:mysql://localhost:3306/counterly
     username: product
