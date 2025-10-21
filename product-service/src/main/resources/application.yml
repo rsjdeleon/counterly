@@ -1,0 +1,13 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: product-service
+  config:
+    import: "configserver:http://localhost:8888/"
+
+  cloud:
+    config:
+      username: username
+      password: password

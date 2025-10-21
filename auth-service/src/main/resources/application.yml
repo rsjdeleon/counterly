@@ -1,0 +1,29 @@
+#server.port=0
+#application-title=Auth Service
+#spring.application.name=auth-service
+
+
+server:
+  port: 8085
+
+application-title: Auth Service
+
+spring:
+  application:
+    name: auth-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+
