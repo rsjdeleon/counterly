@@ -23,6 +23,19 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
+    <!-- Centralize dependency management by importing the bom module's BOM -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>counterly.springframework</groupId>
+                <artifactId>counterly-bom</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <pluginManagement>
             <plugins>
