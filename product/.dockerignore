@@ -1,0 +1,10 @@
+target
+.git
+.idea
+*.log
+*.tmp
+Dockerfile
+*.jar
+.mvn
+.mvn/wrapper/maven-wrapper.jar
+
